@@ -3,7 +3,7 @@ export function dataManagement() {
     const tasks = [];
 
     function addProject(projectObj) {
-
+        
     }
 
     function addTask(taskObj) {
