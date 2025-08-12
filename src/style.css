@@ -112,7 +112,7 @@ footer {
 
 /* popup input styling */
 
-.popup-main-cont {
+.popup-form {
   width: 250px;
   height: 100px;
   border: 2px solid #999;
@@ -127,7 +127,7 @@ footer {
   inset-block-start: 150px;
 }
 
-.popup-sub-bot-cont {
+.popup-bot-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: end;
