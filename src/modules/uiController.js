@@ -16,9 +16,9 @@ function createInputPopup(popupType) {
     ];
 
     const popupDomElements = [
-        { tag: "input", type: "text", id: "name", name: "name", placeholder: `${popupType} name`, container: "popup-top-container" },
-        { tag: "input", type: "date", id: "due", name: "due", container: "popup-bot-container" },
-        { tag: "select", id: "priority", name: "priority", container: "popup-bot-container"},
+        { tag: "input", type: "text", id: "name", name: "name", elClass: "popup-input", placeholder: `${popupType} name`, container: "popup-top-container" },
+        { tag: "input", type: "date", id: "due", name: "due", elClass: "popup-input", container: "popup-bot-container" },
+        { tag: "select", id: "priority", name: "priority", elClass: "popup-input", container: "popup-bot-container"},
         { tag: "button", type: "submit", text: `Add ${popupType}`, elClass: `${popupType}-input-btn`, container: "popup-bot-container"},
     ];
 
