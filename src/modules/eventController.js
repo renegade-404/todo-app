@@ -7,7 +7,7 @@ export const eventControl = (() => {
     const inputsObj = {};
 
 
-    function popupHandler() {
+    function popupHandler() { //add rendering function
         for (let key in inputsObj) {
             delete inputsObj[key];
         }
@@ -20,15 +20,15 @@ export const eventControl = (() => {
         })
 
         document.body.removeChild(inputsForm);
+
     }
 
-    function mainPageHandler(e, fn) {
+    function mainPageHandler(e, createInputFn) {
         const itemType = e.target.classList[0].split("-")[1];
-        fn(itemType);
+        createInputFn(itemType);
 
         const inputBtn = document.querySelector(`.${itemType}-input-btn`);
         inputBtn.addEventListener("click", popupHandler);
-
 
     }
 
