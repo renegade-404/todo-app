@@ -1,9 +1,18 @@
-function renderProjects(projectsArray) {
+function renderProjects(projectsArray, container) {
+    projectsArray.forEach((item) => {
+        const project = document.createElement("li");
+        project.innerText = `#${item.name}`;
+        container.appendChild(task);
+    })
 
 }
 
-function renderTasks(tasksArray) {
-
+function renderTasks(tasksArray, container) {
+    tasksArray.forEach((item) => {
+        const task = document.createElement("li");
+        task.innerText = `>${item.name}`;
+        container.appendChild(task);
+    })
 }
 
 function createInputPopup(popupType) {
