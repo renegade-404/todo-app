@@ -1,22 +1,34 @@
-export function dataManagement() {
-    const projects = [];
-    const tasks = [];
+export const dataManager = function dataManagement() {
+    let projects = [];
+    let tasks = [];
 
     function addProject(projectObj) {
-        
+        projects.push(projectObj);
     }
 
     function addTask(taskObj) {
-
+        projects.push(taskObj);
     }
 
     function getProjects() {
-
+        return projects;
     }
 
     function getTasks() {
-
+        return tasks;
     }
 
-    return {addProject, addTask, getProjects, getTasks}
+    function removeProject(projectName) {
+        projects.forEach((project, index) => {
+            if (project.name == projectName) projects = projects.slice(index, 1);
+        })
+    }
+
+    function removeTasks(taskName) {
+        tasks.forEach((task, index) => {
+            if (task.name == taskName) tasks = tasks.slice(index, 1);
+        })
+    }
+
+    return {addProject, addTask, getProjects, getTasks, removeProject, removeTasks}
 }
