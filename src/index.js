@@ -1,8 +1,8 @@
 import "./style.css";
-import "./modules/dataManager";
-import "./modules/logicManager";
+import { dataManager } from "./modules/dataManager";
+import { domElements } from "./modules/elementsManager";
 import { eventControl } from "./modules/eventController";
-import { createInputPopup } from "./modules/uiController";
+import { createInputPopup, renderProjects, renderTasks } from "./modules/uiController";
 
 
 (() => {
@@ -12,5 +12,7 @@ import { createInputPopup } from "./modules/uiController";
             eventControl.mainPageHandler(e, createInputPopup);
         });
     });
+
+
 
 })();
