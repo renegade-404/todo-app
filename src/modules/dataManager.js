@@ -1,4 +1,4 @@
-export const dataManager = function dataManagement() {
+export function dataManagement() {
     let projects = [];
     let tasks = [];
 
@@ -7,7 +7,7 @@ export const dataManager = function dataManagement() {
     }
 
     function addTask(taskObj) {
-        projects.push(taskObj);
+        tasks.push(taskObj);
     }
 
     function getProjects() {
@@ -24,11 +24,11 @@ export const dataManager = function dataManagement() {
         })
     }
 
-    function removeTasks(taskName) {
+    function removeTask(taskName) {
         tasks.forEach((task, index) => {
             if (task.name == taskName) tasks = tasks.slice(index, 1);
         })
     }
 
-    return {addProject, addTask, getProjects, getTasks, removeProject, removeTasks}
+    return {addProject, addTask, getProjects, getTasks, removeProject, removeTask}
 }
