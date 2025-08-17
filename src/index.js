@@ -1,9 +1,6 @@
 import "./style.css";
-import { dataManager } from "./modules/dataManager";
-import { domElements } from "./modules/elementsManager";
 import { eventControl } from "./modules/eventController";
-import { createInputPopup, renderProjects, renderTasks } from "./modules/uiController";
-
+import { createInputPopup } from "./modules/uiController";
 
 (() => {
 
@@ -12,7 +9,5 @@ import { createInputPopup, renderProjects, renderTasks } from "./modules/uiContr
             eventControl.mainPageHandler(e, createInputPopup);
         });
     });
-
-
 
 })();
