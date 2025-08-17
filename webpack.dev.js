@@ -6,7 +6,11 @@ const { merge } = require('webpack-merge');
    devtool: 'inline-source-map',
    devServer: {
      static: './dist',
-     hot: true,
+     hot: false,
+     liveReload: false,
+     client: {
+      overlay: true
+    }
    },
      module: {
          rules: [
