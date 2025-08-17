@@ -9,7 +9,7 @@ export const eventControl = (() => {
     const inputsObj = {};
 
 
-    function objCreationHandler(e, renderFn, getArray, getContainer) { // creates task or project object
+    function objCreationHandler(e, lastAddedEntry, renderEntryFn, sidebarContainer, renderTodayEntryFn, fieldContainer) { // creates task or project object
         try {
             for (let key in inputsObj) {
                 delete inputsObj[key];
@@ -26,8 +26,11 @@ export const eventControl = (() => {
 
             document.body.removeChild(inputsForm);
 
-            functionsList[`add${typeAsArg}`](inputsObj);
-            renderFn(getArray(), getContainer);
+            functionsList[`add${typeAsArg}ToList`](inputsObj);
+            renderEntryFn(lastAddedEntry(), sidebarContainer);
+            
+            renderTodayEntryFn(lastAddedEntry(), fieldContainer);
+            
         } catch (er) {
             throw er;
         }
@@ -36,15 +39,19 @@ export const eventControl = (() => {
 
     function mainPageHandler(e, createInputPopFn) {
         const itemType = e.target.classList[0].split("-")[1];
-        const typeAsArg = itemType[0].toUpperCase() + itemType.slice(1, itemType.length) + "s";
-        const getRendFn = functionsList[`rend${typeAsArg}`];
-        const getArr = functionsList[`get${typeAsArg}`];
-        const getCont = domElements[`sidebar${typeAsArg}List`];
+        const typeAsArg = itemType[0].toUpperCase() + itemType.slice(1, itemType.length);
+        const lastAddedEntry = functionsList[`getLast${typeAsArg}`];
+
+        const renderEntryFn = functionsList[`rend${typeAsArg}`];
+        const sidebarContainer = domElements[`sidebar${typeAsArg}sList`];
+        
+        const renderTodayEntryFn = functionsList[`rendToday${typeAsArg}`];
+        const fieldContainer = domElements[`field${typeAsArg}sList`];
 
         createInputPopFn(itemType);
 
         const inputBtn = document.querySelector(`.${itemType}-input-btn`);
-        inputBtn.addEventListener("click", (e) => objCreationHandler(e, getRendFn, getArr, getCont));
+        inputBtn.addEventListener("click", (e) => objCreationHandler(e, lastAddedEntry, renderEntryFn, sidebarContainer, renderTodayEntryFn, fieldContainer));
 
     }
 

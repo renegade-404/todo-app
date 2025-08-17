@@ -2,11 +2,11 @@ export function dataManagement() {
     let projects = [];
     let tasks = [];
 
-    function addProject(projectObj) {
+    function addProjectToList(projectObj) {
         projects.push(projectObj);
     }
 
-    function addTask(taskObj) {
+    function addTaskToList(taskObj) {
         tasks.push(taskObj);
     }
 
@@ -16,6 +16,14 @@ export function dataManagement() {
 
     function getTasks() {
         return tasks;
+    }
+
+    function getLastProject() {
+        return projects.at(-1);
+    }
+
+    function getLastTask() {
+        return tasks.at(-1);
     }
 
     function removeProject(projectName) {
@@ -30,5 +38,8 @@ export function dataManagement() {
         })
     }
 
-    return {addProject, addTask, getProjects, getTasks, removeProject, removeTask}
+    return {addProjectToList, addTaskToList,
+            getProjects, getTasks,
+            removeProject, removeTask,
+            getLastProject, getLastTask}
 }

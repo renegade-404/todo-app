@@ -1,18 +1,34 @@
-function renderProjects(projectsArray, container) {
-    projectsArray.forEach((item) => {
-        const project = document.createElement("li");
-        project.innerText = `#${item.name}`;
-        container.appendChild(project);
-    })
+function renderNewProject(projectObj, container) {
+    const project = document.createElement("li");
+    project.innerText = `#${projectObj.name}`;
+    container.appendChild(project);
 
 }
 
-function renderTasks(tasksArray, container) {
-    tasksArray.forEach((item) => {
+function renderNewTask(taskObj, container) {
+    const task = document.createElement("li");
+    task.innerText = `>${taskObj.name}`;
+    container.appendChild(task);
+
+}
+
+function renderNewTodayProject(projectObj, container) {
+    const today = getTodayDate();
+    if (projectObj.due == today) {
+        const project = document.createElement("li");
+        project.innerText = `${projectObj.name}, ${projectObj.due}`;
+        container.appendChild(project);
+    }
+
+}
+
+function renderNewTodayTask(taskObj, container) {
+    const today = getTodayDate();
+    if (taskObj.due == today) {
         const task = document.createElement("li");
-        task.innerText = `>${item.name}`;
+        task.innerText = `${taskObj.name}, ${taskObj.due}`;
         container.appendChild(task);
-    })
+    }
 }
 
 function createInputPopup(popupType) {
@@ -71,6 +87,18 @@ function addSelectOption(arr, selectId) {
     })
 }
 
+function getTodayDate() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth()+1).padStart(2, '0');
+    const yyyy = String(today.getFullYear());
 
-export {renderProjects, renderTasks, createInputPopup}
+    return yyyy+'-'+mm+'-'+dd;
+
+}
+
+
+
+export {renderNewProject, renderNewTask, createInputPopup,
+        renderNewTodayProject, renderNewTodayTask}
 
