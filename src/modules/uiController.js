@@ -2,7 +2,7 @@ function renderProjects(projectsArray, container) {
     projectsArray.forEach((item) => {
         const project = document.createElement("li");
         project.innerText = `#${item.name}`;
-        container.appendChild(task);
+        container.appendChild(project);
     })
 
 }
@@ -19,7 +19,7 @@ function createInputPopup(popupType) {
     const bodyEl = document.body;
 
     const popupContainers = [
-        { tag: "form", elClass: "popup-form", container: bodyEl},
+        { tag: "div", elClass: "popup-form", container: bodyEl},
         { tag: "div", elClass: "popup-top-container", container: "popup-form"},
         { tag: "div", elClass: "popup-bot-container", container: "popup-form"},
     ];
@@ -28,7 +28,7 @@ function createInputPopup(popupType) {
         { tag: "input", type: "text", id: "name", name: "name", elClass: "popup-input", placeholder: `${popupType} name`, container: "popup-top-container" },
         { tag: "input", type: "date", id: "due", name: "due", elClass: "popup-input", container: "popup-bot-container" },
         { tag: "select", id: "priority", name: "priority", elClass: "popup-input", container: "popup-bot-container"},
-        { tag: "button", type: "submit", text: `Add ${popupType}`, elClass: `${popupType}-input-btn`, container: "popup-bot-container"},
+        { tag: "button", text: `Add ${popupType}`, elClass: `${popupType}-input-btn`, container: "popup-bot-container"},
     ];
 
     const selectElementOptions = ["important", "semi-important", "normal"];
