@@ -18,6 +18,8 @@ function renderNewTodayProject(projectObj, container) {
         const project = document.createElement("li");
         project.innerText = `${projectObj.name}, ${projectObj.due}`;
         container.appendChild(project);
+
+        createCheckbox(projectObj["id"], project)
     }
 
 }
@@ -28,6 +30,8 @@ function renderNewTodayTask(taskObj, container) {
         const task = document.createElement("li");
         task.innerText = `${taskObj.name}, ${taskObj.due}`;
         container.appendChild(task);
+
+        createCheckbox(taskObj["id"], task)
     }
 }
 
@@ -94,6 +98,14 @@ function getTodayDate() {
     const yyyy = String(today.getFullYear());
 
     return yyyy+'-'+mm+'-'+dd;
+
+}
+
+function createCheckbox(id, liContainer) {
+    const checkBox = document.createElement("input");
+    checkBox.setAttribute("type", "checkbox");
+    checkBox.id = id;
+    liContainer.appendChild(checkBox);
 
 }
 

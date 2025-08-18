@@ -22,7 +22,10 @@ export const eventControl = (() => {
 
             inputs.forEach((item) => {
                 inputsObj[item.id] = item.value;
+                inputsObj.id = crypto.randomUUID();
             })
+
+            console.log(inputsObj);
 
             document.body.removeChild(inputsForm);
 
