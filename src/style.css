@@ -133,3 +133,42 @@ footer {
   justify-content: end;
   gap: 10px;
 }
+
+/* Today's field styling */
+
+ul {
+  list-style: none;
+}
+
+li {
+  position: relative;
+}
+
+input[type="checkbox"] {
+  /*positioning*/
+  position: absolute;
+  left: -20px;
+  bottom: 5px;
+
+  /*appearance*/
+  appearance: none;
+  width: 1em;
+  height: 1em;
+  border: 1px solid gray;
+  border-radius: 25px;
+  
+  color: green;
+}
+
+input[type="checkbox"]::before {
+  content: "✔";
+  position: absolute;
+  font-size: 1.2em;
+  right: -1px;
+  top: -0.3em;
+  visibility: hidden;
+}
+
+input[type="checkbox"]:checked::before {
+  visibility: visible;
+}
