@@ -1,5 +1,6 @@
 function renderNewProject(projectObj, container) {
     const project = document.createElement("li");
+    project.classList.add("project-li");
     project.innerText = `#${projectObj.name}`;
     container.appendChild(project);
 
@@ -7,6 +8,7 @@ function renderNewProject(projectObj, container) {
 
 function renderNewTask(taskObj, container) {
     const task = document.createElement("li");
+    task.classList.add("task-li");
     task.innerText = `>${taskObj.name}`;
     container.appendChild(task);
 
@@ -16,6 +18,7 @@ function renderNewTodayProject(projectObj, container) {
     const today = getTodayDate();
     if (projectObj.due == today) {
         const project = document.createElement("li");
+        project.classList.add("project-li");
         project.innerText = `${projectObj.name}, ${projectObj.due}`;
         container.appendChild(project);
 
@@ -28,6 +31,7 @@ function renderNewTodayTask(taskObj, container) {
     const today = getTodayDate();
     if (taskObj.due == today) {
         const task = document.createElement("li");
+        task.classList.add("task-li");
         task.innerText = `${taskObj.name}, ${taskObj.due}`;
         container.appendChild(task);
 
@@ -109,8 +113,20 @@ function createCheckbox(id, liContainer) {
 
 }
 
+function completeTaskOrProject(checkedInput, getFunction) {
+    const inputId = checkedInput.id;
+    const entriesArray = getFunction();
+
+    entriesArray.forEach((entry, index) => {
+        if (inputId == entry.id) {
+            entriesArray.splice(index, 1);
+            checkedInput.parentNode.remove();
+        }
+    })
+}
+
 
 
 export {renderNewProject, renderNewTask, createInputPopup,
-        renderNewTodayProject, renderNewTodayTask}
+        renderNewTodayProject, renderNewTodayTask, completeTaskOrProject,}
 

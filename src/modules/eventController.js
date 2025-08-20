@@ -1,3 +1,4 @@
+import { dataManagement } from "./dataManager";
 import { domElements, functionsList } from "./elementsManager";
 
 export const eventControl = (() => {
@@ -5,6 +6,7 @@ export const eventControl = (() => {
     const addProjectBtn = document.querySelector(".add-project-btn");
     const addTaskBtn = document.querySelector(".add-task-btn");
     const arrOfBtns = [addSelectionBtn, addProjectBtn, addTaskBtn];
+    const ulField = document.querySelectorAll(".ul-field");
 
     const inputsObj = {};
 
@@ -58,6 +60,15 @@ export const eventControl = (() => {
 
     }
 
-    return { inputsObj, arrOfBtns, mainPageHandler }
+    function checkedInputHandler(input) {
+        const entryType = input.parentNode.classList[0].split("-")[0];
+        const entryTypeAsArg = entryType[0].toUpperCase() + entryType.slice(1, entryType.length);
+        const getFn = functionsList[`getAll${entryTypeAsArg}s`];
+        if (input.checked) functionsList.completeTaskOrProject(input, getFn);
+    }
+
+
+    return { inputsObj, arrOfBtns, mainPageHandler,
+            checkedInputHandler, ulField }
 
 })();

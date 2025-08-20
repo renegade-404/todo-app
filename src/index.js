@@ -10,4 +10,12 @@ import { createInputPopup } from "./modules/uiController";
         });
     });
 
+    eventControl.ulField.forEach(checkbox => {
+        checkbox.addEventListener("change", (e) => {
+            if (e.target.type === "checkbox" && e.target.checked) {
+                eventControl.checkedInputHandler(e.target);
+            }
+        })
+    })
+
 })();
