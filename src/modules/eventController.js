@@ -1,4 +1,3 @@
-import { dataManagement } from "./dataManager";
 import { domElements, functionsList } from "./elementsManager";
 
 export const eventControl = (() => {
