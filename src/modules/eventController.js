@@ -7,10 +7,14 @@ export const eventControl = (() => {
     const arrOfBtns = [addSelectionBtn, addProjectBtn, addTaskBtn];
     const ulField = document.querySelectorAll(".ul-field");
 
+    const handlerPropertiesNames = ["getLast Placeholder", "rend Placeholder",
+              "sidebar Placeholder sList", "rendToday Placeholder",
+              "field Placeholder sList", "add Placeholder ToList"];
+
     const inputsObj = {};
 
 
-    function objCreationHandler(e, lastAddedEntry, renderEntryFn, sidebarContainer, renderTodayEntryFn, fieldContainer) { // creates task or project object
+    function objCreationHandler(propList) { // creates task or project object
         try {
             for (let key in inputsObj) {
                 delete inputsObj[key];
@@ -18,19 +22,23 @@ export const eventControl = (() => {
 
             const inputs = document.querySelectorAll(".popup-input");
             const inputsForm = document.querySelector(".popup-form");
-            const itmType = e.target.classList[0].split("-")[0];
-            const typeAsArg = itmType[0].toUpperCase() + itmType.slice(1, itmType.length);
+
+            const lastAddedEntry = functionsList[propList["getLastPlaceholder"]];
+            const renderEntryFn = functionsList[propList["rendPlaceholder"]];
+            const sidebarContainer = domElements[propList["sidebarPlaceholdersList"]];
+            const renderTodayEntryFn = functionsList[propList["rendTodayPlaceholder"]];
+            const fieldContainer = domElements[propList["fieldPlaceholdersList"]];
+            const addObjToList = functionsList[propList["addPlaceholderToList"]];
+
 
             inputs.forEach((item) => {
                 inputsObj[item.id] = item.value;
                 inputsObj.id = crypto.randomUUID();
             })
 
-            console.log(inputsObj);
-
             document.body.removeChild(inputsForm);
 
-            functionsList[`add${typeAsArg}ToList`](inputsObj);
+            addObjToList(inputsObj);
             renderEntryFn(lastAddedEntry(), sidebarContainer);
             
             renderTodayEntryFn(lastAddedEntry(), fieldContainer);
@@ -42,20 +50,14 @@ export const eventControl = (() => {
     }
 
     function mainPageHandler(e, createInputPopFn) {
-        const itemType = e.target.classList[0].split("-")[1];
-        const typeAsArg = itemType[0].toUpperCase() + itemType.slice(1, itemType.length);
-        const lastAddedEntry = functionsList[`getLast${typeAsArg}`];
-
-        const renderEntryFn = functionsList[`rend${typeAsArg}`];
-        const sidebarContainer = domElements[`sidebar${typeAsArg}sList`];
+        const entryType = e.target.classList[0].split("-")[1];
         
-        const renderTodayEntryFn = functionsList[`rendToday${typeAsArg}`];
-        const fieldContainer = domElements[`field${typeAsArg}sList`];
+        const propList = generateFncVariables(entryType, handlerPropertiesNames);
 
-        createInputPopFn(itemType);
+        createInputPopFn(entryType);
 
-        const inputBtn = document.querySelector(`.${itemType}-input-btn`);
-        inputBtn.addEventListener("click", (e) => objCreationHandler(e, lastAddedEntry, renderEntryFn, sidebarContainer, renderTodayEntryFn, fieldContainer));
+        const inputBtn = document.querySelector(`.${entryType}-input-btn`); // put button inside domElements?
+        inputBtn.addEventListener("click", () => objCreationHandler(propList));
 
     }
 
@@ -64,6 +66,36 @@ export const eventControl = (() => {
         const entryTypeAsArg = entryType[0].toUpperCase() + entryType.slice(1, entryType.length);
         const getFn = functionsList[`getAll${entryTypeAsArg}s`];
         if (input.checked) functionsList.completeTaskOrProject(input, getFn);
+    }
+
+    function selectPopupHandler(createSelectPopup) {
+        createSelectPopup();
+        const taskBtn = document.querySelector(".select-task-button");
+        const projectBtn = document.querySelector(".select-project-button");
+        const btnsArr = [taskBtn, projectBtn];
+
+        btnsArr.forEach(button => {
+            button.addEventListener("click", (e) => {
+                const entryType = e.target.classList.split("-")[1]; 
+
+            })
+        })
+    }
+
+    function generateFncVariables(entryType, arr) {
+        const typeAsArg = entryType[0].toUpperCase() + entryType.slice(1, entryType.length);
+
+        const newArr = arr.map(func => {
+            const newString = func.replace("Placeholder", typeAsArg).split(" ").join("");
+            return newString;
+        })
+
+        const newObj = {};
+        newArr.forEach(func => {
+            newObj[func.replace(typeAsArg, "Placeholder")] = func;
+        })
+
+        return newObj;
     }
 
 
