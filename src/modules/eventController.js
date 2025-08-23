@@ -49,7 +49,7 @@ export const eventControl = (() => {
     
     }
 
-    function mainPageHandler(e, createInputPopFn) {
+    function noSelectPopupHandler(e, createInputPopFn) {
         const entryType = e.target.classList[0].split("-")[1];
         
         const propList = generateFncVariables(entryType, handlerPropertiesNames);
@@ -68,16 +68,24 @@ export const eventControl = (() => {
         if (input.checked) functionsList.completeTaskOrProject(input, getFn);
     }
 
-    function selectPopupHandler(createSelectPopup) {
+    function selectPopupHandler(createSelectPopup, createInputPopFn) {
         createSelectPopup();
-        const taskBtn = document.querySelector(".select-task-button");
-        const projectBtn = document.querySelector(".select-project-button");
+        const selectPopup = document.querySelector(".select-popup-container");
+        const taskBtn = document.querySelector(".select-task-btn");
+        const projectBtn = document.querySelector(".select-project-btn");
         const btnsArr = [taskBtn, projectBtn];
 
         btnsArr.forEach(button => {
             button.addEventListener("click", (e) => {
-                const entryType = e.target.classList.split("-")[1]; 
+                selectPopup.remove();
+                const entryType = e.target.classList[0].split("-")[1];
+                const propList = generateFncVariables(entryType, handlerPropertiesNames);
 
+                createInputPopFn(entryType);
+
+                const inputBtn = document.querySelector(`.${entryType}-input-btn`); // put button inside domElements?
+                inputBtn.addEventListener("click", () => objCreationHandler(propList));
+                
             })
         })
     }
@@ -99,7 +107,7 @@ export const eventControl = (() => {
     }
 
 
-    return { inputsObj, arrOfBtns, mainPageHandler,
-            checkedInputHandler, ulField }
+    return { inputsObj, arrOfBtns, noSelectPopupHandler,
+            checkedInputHandler, ulField, selectPopupHandler }
 
 })();

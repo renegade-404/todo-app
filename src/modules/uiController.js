@@ -146,6 +146,6 @@ function completeTaskOrProject(checkedInput, getFunction) {
 
 
 
-export {renderNewProject, renderNewTask, createInputPopup,
+export {renderNewProject, renderNewTask, createInputPopup, createSelectInputPopup,
         renderNewTodayProject, renderNewTodayTask, completeTaskOrProject,}
 
