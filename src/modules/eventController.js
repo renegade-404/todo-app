@@ -5,6 +5,7 @@ export const eventControl = (() => {
     const addProjectBtn = document.querySelector(".add-project-btn");
     const addTaskBtn = document.querySelector(".add-task-btn");
     const arrOfBtns = [addSelectionBtn, addProjectBtn, addTaskBtn];
+
     const ulField = document.querySelectorAll(".ul-field");
 
     const handlerPropertiesNames = ["getLast Placeholder", "rend Placeholder",
@@ -50,12 +51,16 @@ export const eventControl = (() => {
     }
 
     function noSelectPopupHandler(e, createInputPopFn) {
-        const entryType = e.target.classList[0].split("-")[1];
+        const entryType = e.target.classList[0].split("-")[1]; // write a function that automates this
         
         const propList = generateFncVariables(entryType, handlerPropertiesNames);
 
         createInputPopFn(entryType);
 
+        const exitPopupBtn = document.querySelector(".exit-popup-button");
+        const popupForm = document.querySelector(".popup-form");
+        exitPopupBtn.addEventListener("click", () => popupForm.remove());
+        
         const inputBtn = document.querySelector(`.${entryType}-input-btn`); // put button inside domElements?
         inputBtn.addEventListener("click", () => objCreationHandler(propList));
 
@@ -70,21 +75,30 @@ export const eventControl = (() => {
 
     function selectPopupHandler(createSelectPopup, createInputPopFn) {
         createSelectPopup();
+        const exitSelectBtn = document.querySelector(".exit-select-button");
         const selectPopup = document.querySelector(".select-popup-container");
         const taskBtn = document.querySelector(".select-task-btn");
         const projectBtn = document.querySelector(".select-project-btn");
-        const btnsArr = [taskBtn, projectBtn];
+        const btnsArr = [taskBtn, projectBtn, exitSelectBtn];
 
         btnsArr.forEach(button => {
             button.addEventListener("click", (e) => {
-                selectPopup.remove();
-                const entryType = e.target.classList[0].split("-")[1];
-                const propList = generateFncVariables(entryType, handlerPropertiesNames);
+                if (e.target.classList == "exit-select-button") selectPopup.remove();
+                else {
+                    selectPopup.remove();
+                    const entryType = e.target.classList[0].split("-")[1];
+                    const propList = generateFncVariables(entryType, handlerPropertiesNames);
 
-                createInputPopFn(entryType);
+                    createInputPopFn(entryType);
 
-                const inputBtn = document.querySelector(`.${entryType}-input-btn`); // put button inside domElements?
-                inputBtn.addEventListener("click", () => objCreationHandler(propList));
+                    const inputBtn = document.querySelector(`.${entryType}-input-btn`);
+                    const exitPopupBtn = document.querySelector(".exit-popup-button");
+                    const popupForm = document.querySelector(".popup-form");
+
+                    exitPopupBtn.addEventListener("click", () => popupForm.remove());
+                    inputBtn.addEventListener("click", () => objCreationHandler(propList));
+                }
+                
                 
             })
         })
@@ -105,7 +119,6 @@ export const eventControl = (() => {
 
         return newObj;
     }
-
 
     return { inputsObj, arrOfBtns, noSelectPopupHandler,
             checkedInputHandler, ulField, selectPopupHandler }

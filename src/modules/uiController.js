@@ -57,7 +57,7 @@ function createInputPopup(popupType) {
         { tag: "input", type: "date", id: "due", name: "due", elClass: "popup-input", container: "popup-bot-container" },
         { tag: "select", id: "priority", name: "priority", elClass: "popup-input", container: "popup-bot-container"},
         { tag: "button", text: `Add ${popupType}`, elClass: `${popupType}-input-btn`, container: "popup-bot-container"},
-        { tag: "button", text: "x", elClass: "exit-button", container: "popup-top-container"},
+        { tag: "button", text: "x", elClass: "exit-popup-button", container: "popup-top-container"},
 
     ];
 
@@ -78,7 +78,7 @@ function createSelectInputPopup() {
     const selectButtons = [
         { tag: "button", text: "Add Project", elClass: "select-project-btn", container: "select-popup-container"},
         { tag: "button", text: "Add Task", elClass: "select-task-btn", container: "select-popup-container"},
-        { tag: "button", text: "x", elClass: "exit-button", container: "select-popup-container"},
+        { tag: "button", text: "x", elClass: "exit-select-button", container: "select-popup-container"},
 
     ];
 
