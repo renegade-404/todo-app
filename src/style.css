@@ -197,17 +197,8 @@ input[type="checkbox"]:checked::before {
   visibility: visible;
 }
 
-.exit-button {
+.exit-popup-button, .exit-select-button {
   position: absolute;
-}
-
-.popup-form .exit-button {
-  right: 0px;
-  top: 0px;
-  margin: 4px;
-}
-
-.select-popup-container .exit-button {
   right: 0px;
   top: 0px;
   margin: 4px;
