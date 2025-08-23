@@ -1,12 +1,14 @@
 import "./style.css";
 import { eventControl } from "./modules/eventController";
-import { createInputPopup } from "./modules/uiController";
+import { createInputPopup, createSelectInputPopup } from "./modules/uiController";
 
 (() => {
 
     eventControl.arrOfBtns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
-            eventControl.mainPageHandler(e, createInputPopup);
+            if (e.target.classList == "add-select-btn") {
+                eventControl.selectPopupHandler(createSelectInputPopup, createInputPopup);
+            } else eventControl.noSelectPopupHandler(e, createInputPopup);
         });
     });
 
@@ -17,5 +19,6 @@ import { createInputPopup } from "./modules/uiController";
             }
         })
     })
+
 
 })();
