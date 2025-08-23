@@ -113,37 +113,47 @@ footer {
 /* popup input styling */
 
 .popup-form {
-  width: 250px;
-  height: 100px;
-  border: 2px solid #999;
+  width: 280px;
+  height: 170px;
+  border: 3px solid #999;
+  background-color: white;
+  padding: 5px;
+
   display: flex;
   flex-direction: column;
   gap: 15px;
-  align-items: center;
 
-  
+
   position: absolute;
-  inset-inline-start: 150px;
-  inset-block-start: 150px;
 }
 
 .popup-bot-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: end;
-  gap: 10px;
+  flex-direction: column;
+  gap: 15px;
+
+}
+
+.popup-input {
+  width: 70%;
+}
+
+.popup-bot-container button {
+  align-self: center;
+  width: 50%;
 }
 
 /* select popup styling */
 
 .select-popup-container {
   width: 250px;
-  height: 100px;
+  height: 150px;
+  background-color: white;
   border: 3px solid black;
 
   position: absolute;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 
 }
@@ -185,4 +195,20 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
   visibility: visible;
+}
+
+.exit-button {
+  position: absolute;
+}
+
+.popup-form .exit-button {
+  right: 0px;
+  top: 0px;
+  margin: 4px;
+}
+
+.select-popup-container .exit-button {
+  right: 0px;
+  top: 0px;
+  margin: 4px;
 }
