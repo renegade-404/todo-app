@@ -69,6 +69,19 @@ function createInputPopup(popupType) {
     
 }
 
+function createSelectInputPopup() {
+    const bodyEl = document.body;
+
+    const selectPopupContainer = [{ tag: "div", elClass: "select-popup-container", container: bodyEl},];
+    const selectButtons = [
+        { tag: "button", text: "Add Project", elClass: "select-project-btn", container: "select-popup-container"},
+        { tag: "button", text: "Add Task", elClass: "select-task-btn", container: "select-popup-container"},
+    ];
+
+    createDomElements(selectPopupContainer);
+    createDomElements(selectButtons);
+}
+
 function createDomElements(arr) {
 
     arr.forEach(({tag, type, id, name, placeholder, elClass, container, text}) => {
@@ -80,7 +93,7 @@ function createDomElements(arr) {
         if (elClass) element.classList.add(elClass);
         if (text) element.textContent = text;
 
-        if (elClass == "popup-form") {
+        if (container == document.body) { // changed from if elClass == "popup-form"
             container.appendChild(element);
         } else {
             const targetContainer = document.querySelector(`.${container}`);
