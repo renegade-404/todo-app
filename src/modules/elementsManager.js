@@ -23,5 +23,6 @@ export const functionsList = {
     getAllProjects: dataManager.getProjects,
     getAllTasks: dataManager.getTasks,
     completeTaskOrProject: completeTaskOrProject,
+    getProperties: dataManager.getProperties,
 
 }

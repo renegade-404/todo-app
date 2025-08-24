@@ -1,28 +1,42 @@
-function renderNewProject(projectObj, container) {
+function renderNewProject(projectObj, container, editButtonEvent) {
     const project = document.createElement("li");
     project.classList.add("project-li");
     project.id = projectObj.id;
-    project.innerText = `#${projectObj.name}`;
+
+    const button = document.createElement("button");
+    button.classList.add("sidebar-li-btn");
+    button.innerText = `#${projectObj.name}`;
+
+    project.appendChild(button);
     container.appendChild(project);
 
+    editButtonEvent(button, createEditWindow);
 }
 
-function renderNewTask(taskObj, container) {
+function renderNewTask(taskObj, container, editButtonEvent) {
     const task = document.createElement("li");
     task.classList.add("task-li");
     task.id = taskObj.id;
-    task.innerText = `>${taskObj.name}`;
+
+    const button = document.createElement("button");
+    button.classList.add("sidebar-li-btn");
+    button.innerText = `#${taskObj.name}`;
+
+    task.appendChild(button);
     container.appendChild(task);
 
+    editButtonEvent(button, createEditWindow);
 }
 
 function renderNewTodayProject(projectObj, container) {
     const today = getTodayDate();
+
     if (projectObj.due == today) {
         const project = document.createElement("li");
         project.id = projectObj.id;
         project.classList.add("project-li");
         project.innerText = `${projectObj.name}, ${projectObj.due}`;
+
         container.appendChild(project);
 
         createCheckbox(projectObj["id"], project)
@@ -32,11 +46,13 @@ function renderNewTodayProject(projectObj, container) {
 
 function renderNewTodayTask(taskObj, container) {
     const today = getTodayDate();
+
     if (taskObj.due == today) {
         const task = document.createElement("li");
         task.id = taskObj.id;
         task.classList.add("task-li");
         task.innerText = `${taskObj.name}, ${taskObj.due}`;
+        
         container.appendChild(task);
 
         createCheckbox(taskObj["id"], task)
@@ -148,8 +164,42 @@ function completeTaskOrProject(checkedInput, getFunction) {
     entriesListElements.forEach(liEl => liEl.remove());
 }
 
+function createEditWindow(entry, getEntry) {
+    const bodyEl = document.body;
+    const entryId = entry.parentNode.id;
+    const type = entry.parentNode.classList[0].split("-")[0];
+    console.log(type, entryId);
+    const entryProperties = getEntry(type, entryId);
+
+
+    const editWindowContainer = [{ tag: "div", elClass: "edit-window-container", container: bodyEl}];
+    const editWindowInputs = [
+        { tag: "input", type: "text", id: "name", name: "name", elClass: "edit-window-input", container: "edit-window-container" },
+        { tag: "input", type: "date", id: "due", name: "due", elClass: "edit-window-input", container: "edit-window-container" },
+        { tag: "select", id: "priority", name: "priority", elClass: "edit-window-input", container: "edit-window-container"},
+        { tag: "button", text: "Delete", elClass: "edit-window-del-btn", container: "edit-window-container"},
+        { tag: "button", text: "Save", elClass: "edit-window-save-btn", container: "edit-window-container"},
+        { tag: "button", text: "x", elClass: "edit-window-exit-btn", container: "edit-window-container"},
+    ];
+
+    createDomElements(editWindowContainer);
+    createDomElements(editWindowInputs);
+
+    const selectElementOptions = ["important", "semi-important", "normal"];
+    addSelectOption(selectElementOptions, "priority");
+
+    const editInputs = document.querySelectorAll(".edit-window-input");
+
+    editInputs.forEach(input => {
+        if (input.name == "name") input.value = entryProperties.name;
+        if (input.name == "due") input.value = entryProperties.due;
+        if (input.name == "priority") input.value = entryProperties.priority;
+    })
+
+}
 
 
 export {renderNewProject, renderNewTask, createInputPopup, createSelectInputPopup,
-        renderNewTodayProject, renderNewTodayTask, completeTaskOrProject,}
+        renderNewTodayProject, renderNewTodayTask, completeTaskOrProject,
+        createEditWindow}
 

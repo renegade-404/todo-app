@@ -37,10 +37,12 @@ export const eventControl = (() => {
                 inputsObj.id = crypto.randomUUID();
             })
 
+            console.log(inputsObj);
+
             document.body.removeChild(inputsForm);
 
             addObjToList(inputsObj);
-            renderEntryFn(lastAddedEntry(), sidebarContainer);
+            renderEntryFn(lastAddedEntry(), sidebarContainer, editWindEventLis);
             
             renderTodayEntryFn(lastAddedEntry(), fieldContainer);
             
@@ -120,7 +122,23 @@ export const eventControl = (() => {
         return newObj;
     }
 
+    function editWindowHandler(e, createEditWind) {
+        createEditWind(e.target, functionsList.getProperties);
+        
+        const exitBtn = document.querySelector(".edit-window-exit-btn");
+        const window = document.querySelector(".edit-window-container");
+
+        exitBtn.addEventListener("click", () => window.remove());
+    }
+
+    function editWindEventLis(btn, createWindFn) {
+        btn.addEventListener("click", (e) => {
+            editWindowHandler(e, createWindFn)
+        })
+    }
+
     return { inputsObj, arrOfBtns, noSelectPopupHandler,
-            checkedInputHandler, ulField, selectPopupHandler }
+            checkedInputHandler, ulField, selectPopupHandler,
+            editWindowHandler }
 
 })();
