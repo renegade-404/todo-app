@@ -213,8 +213,33 @@ function createEditWindow(entry, getEntry) {
 
 }
 
+function editElements(arrOfElements, newPropObj, date) {
+
+    arrOfElements.forEach(entry => {
+        if (entry.parentNode.classList.contains("ul-field")) {
+            if (newPropObj.due !== date) entry.remove();
+            else {
+                if (type == "task") entry.innerText = `>${newPropObj.name}, ${newPropObj.due}`;
+                else entry.innerText = `#${newPropObj.name}, ${newPropObj.due}`;
+            }
+
+
+        } else {
+            if (type == "task") entry.children[0].innerText = `>${newPropObj.name}`;
+            else entry.children[0].innerText = `#${newPropObj.name}`;
+
+        }
+    })
+
+}
+
+function deleteEntryFromDom(arrOfElements) {
+    arrOfElements.forEach(element => element.remove());
+}
+
 
 export {renderNewProject, renderNewTask, createInputPopup, createSelectInputPopup,
         renderNewTodayProject, renderNewTodayTask, completeTaskOrProject,
-        createEditWindow, updateEntry, getTodayDate}
+        createEditWindow, updateEntry, getTodayDate, deleteEntryFromDom,
+        editElements}
 

@@ -1,6 +1,7 @@
 import { renderNewProject, renderNewTask, renderNewTodayProject,
         renderNewTodayTask, completeTaskOrProject, updateEntry, 
-        getTodayDate} from "./uiController";
+        getTodayDate, deleteEntryFromDom,
+        editElements} from "./uiController";
 import { dataManagement } from "./dataManager";
 
 const dataManager = dataManagement();
@@ -28,5 +29,9 @@ export const functionsList = {
     updateEntry: updateEntry,
     editProperties: dataManager.editProperties,
     getTodayDate: getTodayDate,
+    removeProject: dataManager.removeProject,
+    removeTask: dataManager.removeTask,
+    deleteEntryFromDom: deleteEntryFromDom,
+    editElements: editElements,
 
 }

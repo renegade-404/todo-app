@@ -1,6 +1,4 @@
-import { isToday } from "date-fns";
 import { domElements, functionsList } from "./elementsManager";
-import { updateEntry } from "./uiController";
 
 export const eventControl = (() => {
     const addSelectionBtn = document.querySelector(".add-select-btn");
@@ -146,33 +144,37 @@ export const eventControl = (() => {
 
         const exitBtn = document.querySelector(".edit-window-exit-btn");
         const saveBtn = document.querySelector(".edit-window-save-btn");
+        const deleteBtn = document.querySelector(".edit-window-del-btn");
 
         function saveHandler() {
-            updateEntry(type, entryId, functionsList.editProperties);
+            functionsList.updateEntry(type, entryId, functionsList.editProperties);
             const newProp = functionsList.getProperties(type, entryId);
             const today = functionsList.getTodayDate();
 
-            liEntries.forEach(entry => {
-                if (entry.parentNode.classList.contains("ul-field")) {
-                    if (newProp.due !== today) entry.remove();
-                    else {
-                        if (type == "task") entry.innerText = `>${newProp.name}, ${newProp.due}`;
-                        else entry.innerText = `#${newProp.name}, ${newProp.due}`;
-                    }
-                    
-                    
-                } else {
-                    if (type == "task") entry.children[0].innerText = `>${newProp.name}`;
-                    else entry.children[0].innerText = `#${newProp.name}`;
-                    
-                }
-            })
+            functionsList.editElements(liEntries, newProp, today);
             
             window.remove();
         }
 
+        function deleteHandler() {
+            const deleteHandlerPropNames = ["getAll Placeholder s", "remove Placeholder"];
+            const propList = generateFncVariables(type, deleteHandlerPropNames);
+            const getEntriesFn = functionsList[propList["getAllPlaceholders"]]();
+            const removeEntryFn = functionsList[propList["removePlaceholder"]]; 
+
+            getEntriesFn.forEach(entry => {
+                if (entry.id == entryId) {
+                    removeEntryFn(entry.name);
+                    functionsList.deleteEntryFromDom(liEntries);
+                }
+            })
+
+            window.remove();
+        }
+
         exitBtn.addEventListener("click", () => window.remove());
-        saveBtn.addEventListener("click", () => saveHandler())
+        saveBtn.addEventListener("click", () => saveHandler());
+        deleteBtn.addEventListener("click", () => deleteHandler());
     }
 
     return { inputsObj, arrOfBtns, noSelectPopupHandler,
