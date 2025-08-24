@@ -42,6 +42,26 @@ export function dataManagement() {
         return properties;  
     }
 
+    function editProperties(type, id, obj) {
+        if (type == "task") {
+            tasks.forEach(task => {
+                if (task.id == id) {
+                    task.name = obj.name;
+                    task.due = obj.due;
+                    task.priority = obj.priority;
+                }
+            })
+        } else if (type == "project") {
+            projects.forEach(project => {
+                if (project.id == id) {
+                    project.name = obj.name;
+                    project.due = obj.due;
+                    project.priority = obj.priority;
+                }
+            })
+        } else console.error("inappropriate type");
+    }
+
     function getLastProject() {
         return projects.at(-1);
     }
@@ -66,5 +86,5 @@ export function dataManagement() {
             getProjects, getTasks,
             removeProject, removeTask,
             getLastProject, getLastTask,
-            getProperties}
+            getProperties, editProperties}
 }

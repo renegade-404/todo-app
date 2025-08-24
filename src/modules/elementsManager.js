@@ -1,5 +1,6 @@
 import { renderNewProject, renderNewTask, renderNewTodayProject,
-        renderNewTodayTask, completeTaskOrProject } from "./uiController";
+        renderNewTodayTask, completeTaskOrProject, updateEntry, 
+        getTodayDate} from "./uiController";
 import { dataManagement } from "./dataManager";
 
 const dataManager = dataManagement();
@@ -24,5 +25,8 @@ export const functionsList = {
     getAllTasks: dataManager.getTasks,
     completeTaskOrProject: completeTaskOrProject,
     getProperties: dataManager.getProperties,
+    updateEntry: updateEntry,
+    editProperties: dataManager.editProperties,
+    getTodayDate: getTodayDate,
 
 }

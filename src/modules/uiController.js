@@ -52,12 +52,27 @@ function renderNewTodayTask(taskObj, container) {
         task.id = taskObj.id;
         task.classList.add("task-li");
         task.innerText = `${taskObj.name}, ${taskObj.due}`;
-        
+
         container.appendChild(task);
 
         createCheckbox(taskObj["id"], task)
     }
 }
+
+function updateEntry(type, id, editPropFn) {
+    const editInputs = document.querySelectorAll(".edit-window-input");
+    const updatedValues = {};
+
+    editInputs.forEach(input => {
+        if (input.name == "name") updatedValues.name = input.value;
+        if (input.name == "due") updatedValues.due = input.value;
+        if (input.name == "priority") updatedValues.priority = input.value;
+    })
+
+    editPropFn(type, id, updatedValues);
+
+}
+
 
 function createInputPopup(popupType) {
     const bodyEl = document.body;
@@ -201,5 +216,5 @@ function createEditWindow(entry, getEntry) {
 
 export {renderNewProject, renderNewTask, createInputPopup, createSelectInputPopup,
         renderNewTodayProject, renderNewTodayTask, completeTaskOrProject,
-        createEditWindow}
+        createEditWindow, updateEntry, getTodayDate}
 

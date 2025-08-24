@@ -1,4 +1,6 @@
+import { isToday } from "date-fns";
 import { domElements, functionsList } from "./elementsManager";
+import { updateEntry } from "./uiController";
 
 export const eventControl = (() => {
     const addSelectionBtn = document.querySelector(".add-select-btn");
@@ -124,17 +126,53 @@ export const eventControl = (() => {
 
     function editWindowHandler(e, createEditWind) {
         createEditWind(e.target, functionsList.getProperties);
-        
-        const exitBtn = document.querySelector(".edit-window-exit-btn");
-        const window = document.querySelector(".edit-window-container");
 
-        exitBtn.addEventListener("click", () => window.remove());
+        editWindowButtonsEvent(e.target);
+        
     }
 
     function editWindEventLis(btn, createWindFn) {
         btn.addEventListener("click", (e) => {
             editWindowHandler(e, createWindFn)
         })
+    }
+
+    function editWindowButtonsEvent(entry) {
+        const entryId = entry.parentNode.id;
+        const type = entry.parentNode.classList[0].split("-")[0];
+        const window = document.querySelector(".edit-window-container");
+        const liEntries = [...document.querySelectorAll("li")]
+          .filter(li => li.id.includes(entryId));
+
+        const exitBtn = document.querySelector(".edit-window-exit-btn");
+        const saveBtn = document.querySelector(".edit-window-save-btn");
+
+        function saveHandler() {
+            updateEntry(type, entryId, functionsList.editProperties);
+            const newProp = functionsList.getProperties(type, entryId);
+            const today = functionsList.getTodayDate();
+
+            liEntries.forEach(entry => {
+                if (entry.parentNode.classList.contains("ul-field")) {
+                    if (newProp.due !== today) entry.remove();
+                    else {
+                        if (type == "task") entry.innerText = `>${newProp.name}, ${newProp.due}`;
+                        else entry.innerText = `#${newProp.name}, ${newProp.due}`;
+                    }
+                    
+                    
+                } else {
+                    if (type == "task") entry.children[0].innerText = `>${newProp.name}`;
+                    else entry.children[0].innerText = `#${newProp.name}`;
+                    
+                }
+            })
+            
+            window.remove();
+        }
+
+        exitBtn.addEventListener("click", () => window.remove());
+        saveBtn.addEventListener("click", () => saveHandler())
     }
 
     return { inputsObj, arrOfBtns, noSelectPopupHandler,
