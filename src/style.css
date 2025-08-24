@@ -112,7 +112,7 @@ footer {
 
 /* popup input styling */
 
-.popup-form {
+.popup-form, .edit-window-container {
   width: 280px;
   height: 170px;
   border: 3px solid #999;
@@ -197,9 +197,28 @@ input[type="checkbox"]:checked::before {
   visibility: visible;
 }
 
-.exit-popup-button, .exit-select-button {
+.exit-popup-button, .exit-select-button,
+.edit-window-exit-btn {
   position: absolute;
   right: 0px;
   top: 0px;
   margin: 4px;
+}
+
+/* sidebar elements styling */
+.sidebar-li-btn {
+  appearance: none;
+  border: none;
+  background-color: white;
+  text-decoration: rgb(105, 5, 114) wavy underline 3px;
+
+  &:hover {
+    cursor: pointer;
+    text-shadow: #ffcc00 1px 0 10px;
+  }
+}
+
+.edit-window-container {
+  height: 280px;
+  justify-content: center;
 }
