@@ -151,7 +151,7 @@ export const eventControl = (() => {
             const newProp = functionsList.getProperties(type, entryId);
             const today = functionsList.getTodayDate();
 
-            functionsList.editElements(liEntries, newProp, today);
+            functionsList.editElements(liEntries, newProp, today, type, entryId);
             
             window.remove();
         }

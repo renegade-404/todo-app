@@ -28,7 +28,7 @@ function renderNewTask(taskObj, container, editButtonEvent) {
     editButtonEvent(button, createEditWindow);
 }
 
-function renderNewTodayProject(projectObj, container) {
+function renderNewTodayProject(projectObj, container, updateId) {
     const today = getTodayDate();
 
     if (projectObj.due == today) {
@@ -39,12 +39,16 @@ function renderNewTodayProject(projectObj, container) {
 
         container.appendChild(project);
 
-        createCheckbox(projectObj["id"], project)
+        if (updateId) {
+            project.id = updateId;
+            createCheckbox(updateId, project);
+        } else createCheckbox(projectObj["id"], project);
+
     }
 
 }
 
-function renderNewTodayTask(taskObj, container) {
+function renderNewTodayTask(taskObj, container, updateId) {
     const today = getTodayDate();
 
     if (taskObj.due == today) {
@@ -55,7 +59,10 @@ function renderNewTodayTask(taskObj, container) {
 
         container.appendChild(task);
 
-        createCheckbox(taskObj["id"], task)
+        if (updateId) {
+            task.id = updateId;
+            createCheckbox(updateId, task);
+        } else createCheckbox(updateId, task);
     }
 }
 
@@ -168,8 +175,8 @@ function createCheckbox(id, liContainer) {
 function completeTaskOrProject(checkedInput, getFunction) {
     const inputId = checkedInput.id;
     const entriesArray = getFunction();
-    console.log(inputId);
-    const entriesListElements = document.querySelectorAll(`#${inputId}`);
+    const entriesListElements = [...document.querySelectorAll("li")]
+          .filter(li => li.id.includes(inputId));
 
     entriesArray.forEach((entry, index) => {
         if (inputId == entry.id) {
@@ -213,7 +220,8 @@ function createEditWindow(entry, getEntry) {
 
 }
 
-function editElements(arrOfElements, newPropObj, date) {
+function editElements(arrOfElements, newPropObj, date, type, id) {
+    const fieldUl = document.querySelector(`.field-${type}s-list`);
 
     arrOfElements.forEach(entry => {
         if (entry.parentNode.classList.contains("ul-field")) {
@@ -223,10 +231,19 @@ function editElements(arrOfElements, newPropObj, date) {
                 else entry.innerText = `#${newPropObj.name}, ${newPropObj.due}`;
             }
 
-
         } else {
-            if (type == "task") entry.children[0].innerText = `>${newPropObj.name}`;
-            else entry.children[0].innerText = `#${newPropObj.name}`;
+            if (type == "task") {
+                entry.children[0].innerText = `>${newPropObj.name}`;
+                if (newPropObj.due == date) {
+                    renderNewTodayTask(newPropObj, fieldUl, id);
+                } 
+            } 
+            else if (type == "project") {
+                entry.children[0].innerText = `#${newPropObj.name}`;
+                if (newPropObj.due == date) {
+                    renderNewTodayProject(newPropObj, fieldUl, id);
+                } 
+            } 
 
         }
     })
