@@ -33,5 +33,6 @@ export const functionsList = {
     removeTask: dataManager.removeTask,
     deleteEntryFromDom: deleteEntryFromDom,
     editElements: editElements,
+    getOneProp: dataManager.getOneProperty,
 
 }
