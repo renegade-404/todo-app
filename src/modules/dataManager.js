@@ -62,6 +62,22 @@ export function dataManagement() {
         } else console.error("inappropriate type");
     }
 
+    function getOneProperty(type, id, propName) {
+        if (type == "task") {
+            tasks.forEach(task => {
+                if (task.id == id) {
+                    return task[propName];
+                }
+            })
+        } else if (type == "project") {
+            projects.forEach(project => {
+                if (project.id == id) {
+                    return project[propName];
+                }
+            })
+        } else console.error("inappropriate type");
+    }
+
     function getLastProject() {
         return projects.at(-1);
     }
@@ -86,5 +102,6 @@ export function dataManagement() {
             getProjects, getTasks,
             removeProject, removeTask,
             getLastProject, getLastTask,
-            getProperties, editProperties}
+            getProperties, editProperties,
+            getOneProperty}
 }
