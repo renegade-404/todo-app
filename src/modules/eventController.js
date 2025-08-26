@@ -37,12 +37,10 @@ export const eventControl = (() => {
                 inputsObj.id = crypto.randomUUID();
             })
 
-            console.log(inputsObj);
-
             document.body.removeChild(inputsForm);
 
             addObjToList(inputsObj);
-            renderEntryFn(lastAddedEntry(), sidebarContainer, editWindEventLis);
+            renderEntryFn(lastAddedEntry(), sidebarContainer, editWindEventLis, saveInStorage);
             
             renderTodayEntryFn(lastAddedEntry(), fieldContainer);
             
@@ -177,8 +175,30 @@ export const eventControl = (() => {
         deleteBtn.addEventListener("click", () => deleteHandler());
     }
 
+    // function fetchStorageEvent(e) {
+
+    //     if (localStorage.length >= 1) {
+    //         const oldVal = JSON.parse(localStorage.getItem(e.key));
+    //         if (JSON.parse(Object.values(e.key)) == Object.values(oldVal)) return;
+    //     } else console.log(`Updated #${Object.values(e.key)}`);
+            
+    // }
+    
+    function saveInStorage(type, obj) {
+        if (type == "projects") {
+            const projects = JSON.parse(localStorage.getItem("projects")) || [];
+            projects.push(obj);
+            localStorage.setItem("projects", JSON.stringify(projects));
+        } else {
+            const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks.push(obj);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+    }
+
     return { inputsObj, arrOfBtns, noSelectPopupHandler,
             checkedInputHandler, ulField, selectPopupHandler,
-            editWindowHandler }
+            editWindowHandler, saveInStorage }
 
 })();

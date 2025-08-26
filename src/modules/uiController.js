@@ -1,4 +1,4 @@
-function renderNewProject(projectObj, container, editButtonEvent) {
+function renderNewProject(projectObj, container, editButtonEvent, saveInStorage) {
     const project = document.createElement("li");
     project.classList.add("project-li");
     project.id = projectObj.id;
@@ -11,9 +11,10 @@ function renderNewProject(projectObj, container, editButtonEvent) {
     container.appendChild(project);
 
     editButtonEvent(button, createEditWindow);
+    saveInStorage("projects", projectObj);
 }
 
-function renderNewTask(taskObj, container, editButtonEvent) {
+function renderNewTask(taskObj, container, editButtonEvent, saveInStorage) {
     const task = document.createElement("li");
     task.classList.add("task-li");
     task.id = taskObj.id;
@@ -26,6 +27,7 @@ function renderNewTask(taskObj, container, editButtonEvent) {
     container.appendChild(task);
 
     editButtonEvent(button, createEditWindow);
+    saveInStorage("tasks", projectObj);
 }
 
 function renderNewTodayProject(projectObj, container, updateId) {

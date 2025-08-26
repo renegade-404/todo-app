@@ -1,8 +1,11 @@
 import "./style.css";
 import { eventControl } from "./modules/eventController";
 import { createInputPopup, createSelectInputPopup } from "./modules/uiController";
+import { dataManagement } from "./modules/dataManager";
 
 (() => {
+
+    dataManagement().initStorage();
 
     eventControl.arrOfBtns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
@@ -20,5 +23,8 @@ import { createInputPopup, createSelectInputPopup } from "./modules/uiController
         })
     })
 
+    window.addEventListener("storage", (e) => {
+        eventControl.storageSaveEvent(e);
+    })
 
 })();
