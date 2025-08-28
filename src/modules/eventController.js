@@ -199,6 +199,6 @@ export const eventControl = (() => {
 
     return { inputsObj, arrOfBtns, noSelectPopupHandler,
             checkedInputHandler, ulField, selectPopupHandler,
-            editWindowHandler, saveInStorage }
+            editWindowHandler, saveInStorage, editWindEventLis }
 
 })();
