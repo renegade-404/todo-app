@@ -174,8 +174,9 @@ function createCheckbox(id, liContainer) {
 
 }
 
-function completeTaskOrProject(checkedInput, getFunction) {
+function completeTaskOrProject(checkedInput, getFunction, removeFromStorageFn) {
     const inputId = checkedInput.id;
+    const entryType = checkedInput.parentNode.classList[0].split("-")[0];
     const entriesArray = getFunction();
     const entriesListElements = [...document.querySelectorAll("li")]
           .filter(li => li.id.includes(inputId));
@@ -186,6 +187,7 @@ function completeTaskOrProject(checkedInput, getFunction) {
         }
     })
     entriesListElements.forEach(liEl => liEl.remove());
+    removeFromStorageFn(entryType, inputId);
 }
 
 function createEditWindow(entry, getEntry) {
