@@ -49,5 +49,12 @@ export function storageControl() {
 
     }
 
-    return { initStorage }
+    function removeFromStorage(type, entryId) {
+        let storageList = JSON.parse(localStorage.getItem(`${type}s`)) || [];
+
+        storageList = storageList.filter(storageEntry => storageEntry.id !== entryId);
+        localStorage.setItem(`${type}s`, JSON.stringify(storageList));
+    }
+
+    return { initStorage, removeFromStorage }
 }

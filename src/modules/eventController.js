@@ -1,4 +1,5 @@
 import { domElements, functionsList } from "./elementsManager";
+import { storageControl } from "./storageController";
 
 export const eventControl = (() => {
     const addSelectionBtn = document.querySelector(".add-select-btn");
@@ -164,6 +165,7 @@ export const eventControl = (() => {
                 if (entry.id == entryId) {
                     removeEntryFn(entry.name);
                     functionsList.deleteEntryFromDom(liEntries);
+                    storageControl().removeFromStorage(type, entry.id);
                 }
             })
 
@@ -174,15 +176,6 @@ export const eventControl = (() => {
         saveBtn.addEventListener("click", () => saveHandler());
         deleteBtn.addEventListener("click", () => deleteHandler());
     }
-
-    // function fetchStorageEvent(e) {
-
-    //     if (localStorage.length >= 1) {
-    //         const oldVal = JSON.parse(localStorage.getItem(e.key));
-    //         if (JSON.parse(Object.values(e.key)) == Object.values(oldVal)) return;
-    //     } else console.log(`Updated #${Object.values(e.key)}`);
-            
-    // }
     
     function saveInStorage(type, obj) {
         if (type == "projects") {
