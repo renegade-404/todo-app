@@ -3,8 +3,10 @@ import { renderNewProject, renderNewTask, renderNewTodayProject,
         getTodayDate, deleteEntryFromDom,
         editElements} from "./uiController";
 import { dataManagement } from "./dataManager";
+import { storageControl } from "./storageController";
 
 const dataManager = dataManagement();
+const storageController = storageControl();
 
 export const domElements = {
     sidebarProjectsList: document.querySelector(".sidebar-projects-list"),
@@ -34,4 +36,5 @@ export const functionsList = {
     deleteEntryFromDom: deleteEntryFromDom,
     editElements: editElements,
     getOneProp: dataManager.getOneProperty,
+    removeFromStorage: storageController.removeFromStorage,
 }
