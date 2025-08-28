@@ -98,19 +98,10 @@ export function dataManagement() {
         })
     }
 
-    function initStorage() {
-        if (!localStorage.getItem("projects")) {
-            localStorage.setItem("projects", JSON.stringify([]));
-        }
-        if (!localStorage.getItem("tasks")) {
-            localStorage.setItem("tasks", JSON.stringify([]));
-        }
-    }
-
     return {addProjectToList, addTaskToList,
             getProjects, getTasks,
             removeProject, removeTask,
             getLastProject, getLastTask,
             getProperties, editProperties,
-            getOneProperty, initStorage}
+            getOneProperty}
 }
