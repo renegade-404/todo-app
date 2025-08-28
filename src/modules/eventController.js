@@ -1,5 +1,4 @@
 import { domElements, functionsList } from "./elementsManager";
-import { storageControl } from "./storageController";
 
 export const eventControl = (() => {
     const addSelectionBtn = document.querySelector(".add-select-btn");
@@ -71,7 +70,7 @@ export const eventControl = (() => {
         const entryType = input.parentNode.classList[0].split("-")[0];
         const entryTypeAsArg = entryType[0].toUpperCase() + entryType.slice(1, entryType.length);
         const getFn = functionsList[`getAll${entryTypeAsArg}s`];
-        if (input.checked) functionsList.completeTaskOrProject(input, getFn);
+        if (input.checked) functionsList.completeTaskOrProject(input, getFn, functionsList.removeFromStorage);
     }
 
     function selectPopupHandler(createSelectPopup, createInputPopFn) {
@@ -165,7 +164,7 @@ export const eventControl = (() => {
                 if (entry.id == entryId) {
                     removeEntryFn(entry.name);
                     functionsList.deleteEntryFromDom(liEntries);
-                    storageControl().removeFromStorage(type, entry.id);
+                    functionsList.removeFromStorage(type, entry.id);
                 }
             })
 
