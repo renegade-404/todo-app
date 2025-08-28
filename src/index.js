@@ -1,11 +1,11 @@
 import "./style.css";
 import { eventControl } from "./modules/eventController";
 import { createInputPopup, createSelectInputPopup } from "./modules/uiController";
-import { dataManagement } from "./modules/dataManager";
+import { storageControl } from "./modules/storageController";
 
 (() => {
 
-    dataManagement().initStorage();
+    storageControl().initStorage();
 
     eventControl.arrOfBtns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
