@@ -34,5 +34,4 @@ export const functionsList = {
     deleteEntryFromDom: deleteEntryFromDom,
     editElements: editElements,
     getOneProp: dataManager.getOneProperty,
-
 }
