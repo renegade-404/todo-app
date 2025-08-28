@@ -11,7 +11,7 @@ function renderNewProject(projectObj, container, editButtonEvent, saveInStorage)
     container.appendChild(project);
 
     editButtonEvent(button, createEditWindow);
-    saveInStorage("projects", projectObj);
+    if (saveInStorage) saveInStorage("projects", projectObj);
 }
 
 function renderNewTask(taskObj, container, editButtonEvent, saveInStorage) {
@@ -27,7 +27,7 @@ function renderNewTask(taskObj, container, editButtonEvent, saveInStorage) {
     container.appendChild(task);
 
     editButtonEvent(button, createEditWindow);
-    saveInStorage("tasks", projectObj);
+    if (saveInStorage) saveInStorage("tasks", taskObj);
 }
 
 function renderNewTodayProject(projectObj, container, updateId) {
