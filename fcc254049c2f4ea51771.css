@@ -1,0 +1,345 @@
+@import url(https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap);
+/* Fonts */
+
+:root {
+  /* --main-font: "Macondo Swash Caps"; */
+  --fallback-fonts: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+     Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+    sans-serif;
+
+  --thick-black-brd: 4px solid  black;
+  --thick-red-brd: 4px solid #490404;
+  --dark-red: #490404;
+  --bck-yellow: rgb(250, 204, 21);
+}
+
+/* Normalize */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  font-size: 1.1rem;
+  background-color: antiquewhite;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Pixelify Sans", var(--fallback-fonts);
+  
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+input, select {
+  outline: none;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+#root, #__next {
+  isolation: isolate;
+}
+
+/* Styling */
+
+.main-container {
+    height: 80%;
+    width: 60%;
+    /* border: 3px solid black; */
+    background-color: var(--bck-yellow);
+    padding: 8px;
+    border-radius: 4px;
+
+    display: grid;
+    grid-template-columns: [colStart] 1fr [colMiddle] 2fr [colEnd];
+    grid-template-rows: 1fr [fieldStart] 1fr [fieldMiddle] 3fr [fieldEnd] 0.5fr [footer];
+    row-gap: 2rem;
+    column-gap: 2rem;
+}
+
+header {
+    /* grid styling */
+    grid-column: colStart / colEnd;
+
+    /* container styling */
+    display: flex;
+    background-color: #000;
+    color: var(--bck-yellow);
+    border-radius: 4px;
+}
+
+.sidebar {
+    /* grid styling */
+    grid-column: colStart / colMiddle;
+    grid-row: fieldStart / footer;
+
+    /* container styling */
+    border: 5px solid black;
+    background-color: white;
+    border-radius: 4px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.user-field {
+    /* grid styling */
+    grid-column: colMiddle / colEnd;
+    grid-row: fieldStart / footer;
+
+    /* container styling */
+    padding: 5px;
+    border: 5px solid black;
+    background-color: white;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+footer {
+    /* grid styling */
+    grid-column: colStart / colEnd;
+    grid-row: footer;
+
+    /* container styling */
+    background-color: var(--dark-red);
+    color: white;
+    border-radius: 4px;
+    & p {
+      margin-left: 1rem;
+    }
+}
+
+/* popup input styling */
+
+.popup-form, .edit-window-container {
+  width: 22vw;
+  height: 35vh;
+  border: var(--thick-red-brd);
+  border-radius: 4px;
+  background-color: white;
+  padding: 5px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  position: absolute;
+}
+
+.edit-window-container {
+  align-items: center;
+  height: 40vh;
+  justify-content: center;
+
+}
+
+.edit-window-container button:not(.edit-window-exit-btn) {
+  width: 50%;
+}
+
+.popup-bot-container{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.popup-input,
+.edit-window-input {
+  width: 70%;
+  border: var(--thick-black-brd);
+  border-radius: 4px;
+  box-shadow: 3px 3px #490404;
+}
+
+.popup-top-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* select popup styling */
+
+.select-popup-container {
+  width: 250px;
+  height: 150px;
+  background-color: white;
+  border: var(--thick-black-brd);
+  border-radius: 4px;
+
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+}
+
+/* Today's field styling */
+
+.user-field-today {
+  width: 80%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.user-field-projects,
+.user-field-tasks {
+  display: flex;
+  justify-content: space-between;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  position: relative;
+}
+
+input[type="checkbox"] {
+  /*positioning*/
+  position: absolute;
+  left: -25px;
+  bottom: 5px;
+
+  /*appearance*/
+  appearance: none;
+  width: 1.1em;
+  height: 1em;
+  border: 6px dotted var(--dark-red);
+  border-radius: 25px;
+  
+}
+
+input[type="checkbox"]::before {
+  position: absolute;
+  font-size: 1.2em;
+  right: -1px;
+  top: -0.3em;
+  visibility: hidden;
+}
+
+input[type="checkbox"]:checked::before {
+  visibility: visible;
+}
+
+/* buttons */
+.exit-popup-button, .exit-select-button,
+.edit-window-exit-btn {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  margin: 4px;
+
+}
+
+.project-input-btn,
+.exit-popup-button,
+.exit-select-button,
+.edit-window-exit-btn,
+.select-project-btn,
+.select-task-btn,
+.edit-window-del-btn,
+.edit-window-save-btn {
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  border: var(--thick-black-brd);
+
+  &:hover {
+    background-color: var(--bck-yellow);
+    color: #000;
+  }
+}
+
+.add-select-btn,
+.add-project-btn,
+.add-task-btn {
+  height: 1.9rem;
+  color: white;
+  border: var(--thick-black-brd);
+  background-color: var(--dark-red);
+  border-radius: 3px;
+  box-shadow: 3px 3px #000;
+  transition: all 0.3s ease;
+
+  &:hover {
+    cursor: pointer;
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--bck-yellow);
+  }
+}
+
+.add-select-btn {
+  align-self: end;
+  width: 2rem;
+}
+
+/* sidebar elements styling */
+.sidebar-li-btn {
+  appearance: none;
+  border: var(--thick-black-brd);
+  background-color: rgb(250, 204, 21);
+  border-radius: 4px;
+  box-shadow: 6px 6px #000;
+  transition: all 0.2s ease;
+  
+
+  &:hover {
+    cursor: pointer;
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0 #490404;
+  }
+}
+
+.sidebar-projects-list,
+.sidebar-tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.user-field-img {
+  background-color: #000;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+img {
+  max-height: 7vh;
+}
