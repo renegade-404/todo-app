@@ -18,6 +18,10 @@ const { merge } = require('webpack-merge');
                  test: /\.css$/i,
                  use: ['style-loader', 'css-loader'],
              },
+             {
+                 test: /\.html$/i,
+                 loader: "html-loader",
+             }
          ]
      }
  });
