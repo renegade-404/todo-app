@@ -138,6 +138,17 @@ footer {
   position: absolute;
 }
 
+.edit-window-container {
+  align-items: center;
+  height: 40vh;
+  justify-content: center;
+
+}
+
+.edit-window-container button:not(.edit-window-exit-btn) {
+  width: 50%;
+}
+
 .popup-bot-container{
   display: flex;
   flex-direction: column;
@@ -146,16 +157,12 @@ footer {
   margin-bottom: 2rem;
 }
 
-.popup-input {
+.popup-input,
+.edit-window-input {
   width: 70%;
   border: var(--thick-black-brd);
   border-radius: 4px;
   box-shadow: 3px 3px #490404;
-}
-
-.popup-bot-container button {
-  align-self: center;
-  width: 50%;
 }
 
 .popup-top-container {
@@ -234,7 +241,9 @@ input[type="checkbox"]:checked::before {
 .exit-select-button,
 .edit-window-exit-btn,
 .select-project-btn,
-.select-task-btn {
+.select-task-btn,
+.edit-window-del-btn,
+.edit-window-save-btn {
   background-color: black;
   color: white;
   border-radius: 4px;
@@ -265,8 +274,10 @@ input[type="checkbox"]:checked::before {
   }
 }
 
-.edit-window-container {
-  height: 280px;
-  justify-content: center;
+.sidebar-projects-list,
+.sidebar-tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
 }
 
