@@ -1,10 +1,17 @@
 /* Fonts */
 
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
 :root {
   /* --main-font: "Macondo Swash Caps"; */
   --fallback-fonts: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
      Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
     sans-serif;
+
+  --thick-black-brd: 4px solid  black;
+  --thick-red-brd: 4px solid #490404;
+  --dark-red: #490404;
+  --bck-yellow: rgb(250, 204, 21);
 }
 
 /* Normalize */
@@ -25,7 +32,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  font-family: var(--fallback-fonts);
+  font-family: "Pixelify Sans", var(--fallback-fonts);
   
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -38,6 +45,10 @@ img, picture, video, canvas, svg {
 
 input, button, textarea, select {
   font: inherit;
+}
+
+input, select {
+  outline: none;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -113,9 +124,10 @@ footer {
 /* popup input styling */
 
 .popup-form, .edit-window-container {
-  width: 280px;
-  height: 170px;
-  border: 3px solid #999;
+  width: 22vw;
+  height: 35vh;
+  border: var(--thick-red-brd);
+  border-radius: 4px;
   background-color: white;
   padding: 5px;
 
@@ -123,24 +135,33 @@ footer {
   flex-direction: column;
   gap: 15px;
 
-
   position: absolute;
 }
 
-.popup-bot-container {
+.popup-bot-container{
   display: flex;
   flex-direction: column;
   gap: 15px;
-
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 .popup-input {
   width: 70%;
+  border: var(--thick-black-brd);
+  border-radius: 4px;
+  box-shadow: 3px 3px #490404;
 }
 
 .popup-bot-container button {
   align-self: center;
   width: 50%;
+}
+
+.popup-top-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
 }
 
 /* select popup styling */
@@ -149,7 +170,8 @@ footer {
   width: 250px;
   height: 150px;
   background-color: white;
-  border: 3px solid black;
+  border: var(--thick-black-brd);
+  border-radius: 4px;
 
   position: absolute;
   display: flex;
@@ -197,24 +219,49 @@ input[type="checkbox"]:checked::before {
   visibility: visible;
 }
 
+/* buttons */
 .exit-popup-button, .exit-select-button,
 .edit-window-exit-btn {
   position: absolute;
   right: 0px;
   top: 0px;
   margin: 4px;
+
 }
+
+.project-input-btn,
+.exit-popup-button,
+.exit-select-button,
+.edit-window-exit-btn,
+.select-project-btn,
+.select-task-btn {
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  border: var(--thick-black-brd);
+
+  &:hover {
+    background-color: var(--bck-yellow);
+    color: #000;
+  }
+}
+
 
 /* sidebar elements styling */
 .sidebar-li-btn {
   appearance: none;
-  border: none;
-  background-color: white;
-  text-decoration: rgb(105, 5, 114) wavy underline 3px;
+  border: var(--thick-black-brd);
+  background-color: rgb(250, 204, 21);
+  border-radius: 4px;
+  box-shadow: 6px 6px #000;
+  transition: all 0.2s ease;
+  
 
   &:hover {
     cursor: pointer;
-    text-shadow: #ffcc00 1px 0 10px;
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0 #490404;
   }
 }
 
@@ -222,3 +269,4 @@ input[type="checkbox"]:checked::before {
   height: 280px;
   justify-content: center;
 }
+
