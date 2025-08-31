@@ -21,7 +21,7 @@ function renderNewTask(taskObj, container, editButtonEvent, saveInStorage) {
 
     const button = document.createElement("button");
     button.classList.add("sidebar-li-btn");
-    button.innerText = `#${taskObj.name}`;
+    button.innerText = `>${taskObj.name}`;
 
     task.appendChild(button);
     container.appendChild(task);
@@ -64,7 +64,7 @@ function renderNewTodayTask(taskObj, container, updateId) {
         if (updateId) {
             task.id = updateId;
             createCheckbox(updateId, task);
-        } else createCheckbox(updateId, task);
+        } else createCheckbox(taskObj["id"], task);
     }
 }
 
@@ -162,7 +162,7 @@ function getTodayDate() {
     const mm = String(today.getMonth()+1).padStart(2, '0');
     const yyyy = String(today.getFullYear());
 
-    return yyyy+'-'+mm+'-'+dd;
+    return `${yyyy}-${mm}-${dd}`;
 
 }
 
@@ -230,19 +230,15 @@ function editElements(arrOfElements, newPropObj, date, type, id) {
     arrOfElements.forEach(entry => {
         if (entry.parentNode.classList.contains("ul-field")) {
             if (newPropObj.due !== date) entry.remove();
-            else {
-                if (type == "task") entry.innerText = `>${newPropObj.name}, ${newPropObj.due}`;
-                else entry.innerText = `#${newPropObj.name}, ${newPropObj.due}`;
-            }
 
         } else {
             if (type == "task") {
                 entry.children[0].innerText = `>${newPropObj.name}`;
-                if (newPropObj.due == date) {
+                if (newPropObj.due == date && entry.parentNode.classList.contains("ul-field")) {
                     renderNewTodayTask(newPropObj, fieldUl, id);
                 } 
             } 
-            else if (type == "project") {
+            else if (type == "project" && entry.parentNode.classList.contains("ul-field")) {
                 entry.children[0].innerText = `#${newPropObj.name}`;
                 if (newPropObj.due == date) {
                     renderNewTodayProject(newPropObj, fieldUl, id);

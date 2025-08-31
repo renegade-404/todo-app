@@ -3,25 +3,30 @@ import { eventControl } from "./eventController";
 
 export function storageControl() {
 
-    function initStorage() {
+    function initStorage() { //split into two
         if (!localStorage.getItem("projects")) {
             localStorage.setItem("projects", JSON.stringify([]));
-        } else updateProjects(
+        } else {
+            updateProjects(
             functionsList.rendProject,
             functionsList.rendTodayProject,
-            eventControl.editWindEventLis
-        )
+            eventControl.editWindEventLis);
+            updateProjectsList();
+        }
+        
 
         if (!localStorage.getItem("tasks")) {
             localStorage.setItem("tasks", JSON.stringify([]));
-        } else updateTasks(
+        } else {
+            updateTasks(
             functionsList.rendTask,
             functionsList.rendTodayTask,
-            eventControl.editWindEventLis
-        )
+            eventControl.editWindEventLis);
+            updateTasksList();
+        }
     }
 
-    function updateProjects(rendProjFn, rendProjTdFn, editBtnEvent) {
+    function updateProjects(rendProjFn, rendProjTdFn, editBtnEvent) { //remove argument functions
         const projects = JSON.parse(localStorage.getItem("projects"));
         if (projects.length == 0) return;
 
@@ -54,6 +59,22 @@ export function storageControl() {
 
         storageList = storageList.filter(storageEntry => storageEntry.id !== entryId);
         localStorage.setItem(`${type}s`, JSON.stringify(storageList));
+    }
+
+    function updateProjectsList() {
+        const projectList = JSON.parse(localStorage.getItem("projects"));
+
+        projectList.forEach(project => {
+            functionsList.addProjectToList(project);
+        });
+    }
+
+    function updateTasksList() {
+        const taskList = JSON.parse(localStorage.getItem("tasks"));
+
+        taskList.forEach(task => {
+            functionsList.addTaskToList(task);
+        });
     }
 
     return { initStorage, removeFromStorage }

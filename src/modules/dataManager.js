@@ -88,13 +88,13 @@ export function dataManagement() {
 
     function removeProject(projectName) {
         projects.forEach((project, index) => {
-            if (project.name == projectName) projects = projects.slice(index, 1);
+            if (project.name === projectName) projects = projects.slice(index, 1);
         })
     }
 
     function removeTask(taskName) {
         tasks.forEach((task, index) => {
-            if (task.name == taskName) tasks = tasks.slice(index, 1);
+            if (task.name === taskName) tasks = tasks.slice(index, 1);
         })
     }
 
