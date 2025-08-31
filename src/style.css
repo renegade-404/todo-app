@@ -269,6 +269,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .project-input-btn,
+.task-input-btn,
 .exit-popup-button,
 .exit-select-button,
 .edit-window-exit-btn,
